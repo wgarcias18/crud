@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tareas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href= "{% static 'main.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <h1 class="display-6 fw-bold">TAREAS </h1>
+<form action="{% url 'nueva_tarea' %} " method="POST" class="card card-body bg-secondary">
+{% csrf_token %}
+    <label for="Tarea">Ingrese su tarea</label>
+    <input type="text" name="Tarea" placeholder="Escribe una tarea" class="from-control mb-2">
+    <label for="descripcion">Ingrese su descripcion</label>
+    <textarea name="descripcion" rows = "3" placeholder="Escribe una descripcion" class="from-control mb-2"></textarea>
+    <button class="btn btn-success">Guardar</button>
+</form>
+
+{% for Tarea in tareas %}
+            <div class="list-group">
+                <div class="card card-body bg-secondary text-light d-flex flex-row justify-content-between mt-2">
+                    <h3>{{Tarea.titulo}} </h3>
+                    <p>{{Tarea.descripcion}}</p>
+                </div>
+                <form action="{% url 'editar_tareas' Tarea.id %}" methods="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-primary">Editar</button>
+                </form>
+
+
+                <form action="{% url 'eliminar_tareas' Tarea.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+{% endfor %}
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

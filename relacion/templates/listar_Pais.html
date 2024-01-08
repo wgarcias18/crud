@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paises</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href= "{% static 'main.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <h1 class="display-6 fw-bold">TAREAS </h1>
+<form action="{% url 'crear_pais' %} " method="POST" class="card card-body bg-secondary">
+{% csrf_token %}
+    <label for="nombre">Ingrese nombre del  Pais</label>
+    <input type="text" name="nombre" placeholder="Escribe un pais" class="from-control mb-2">
+    <label for="estado">Ingrese su estado</label>
+    <textarea name="estado" rows = "3" placeholder="Escribe una estado" class="from-control mb-2"></textarea>
+    <button class="btn btn-success">Guardar</button>
+</form>
+
+{% for Pais in pais %}
+            <div class="list-group">
+                <div class="card card-body bg-secondary text-light d-flex flex-row justify-content-between mt-2">
+                    <h3>{{Pais.nombre}} </h3>
+                    <p>{{Pais.estado}}</p>
+                </div>
+            </div>
+{% endfor %}
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
